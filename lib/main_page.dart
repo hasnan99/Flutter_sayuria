@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'main.dart';
 import 'product_page.dart';
 import 'order_page.dart';
 import 'cart_page.dart';
 import 'profile_page.dart';
 
+void main() {
+  runApp(MainPage());
+}
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -21,7 +25,9 @@ class _MainPageState extends State<MainPage> {
     Widget cartButton(){
       return FloatingActionButton(
         backgroundColor: Colors.green,
-        onPressed: (){},
+        onPressed: (){
+
+        },
         child: Image.asset('assets/images/ic_cart.png', width: 30,),
       );
     }

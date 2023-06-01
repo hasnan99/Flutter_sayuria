@@ -1,8 +1,12 @@
+
+import 'dart:io'as io;
 import 'package:flutter_sayuria/model/user.dart';
 import 'package:http/http.dart'as http;
 import 'dart:convert';
 import 'package:flutter_sayuria/service/global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+late SharedPreferences preferences;
 
 class authservice{
   var token;
@@ -43,7 +47,7 @@ class authservice{
     return response;
   }
 
-  static Future<http.Response> ubahprofile(int id,String nama_depan,String nama_belakang,String email, String username,String alamat)async{
+  static Future<http.Response> ubahprofile(int id,String nama_depan,String nama_belakang,String email, String username,String alamat,io.File profile)async{
     final int userid=id;
     Map data={
       "nama_depan":nama_depan,
@@ -52,6 +56,9 @@ class authservice{
       "username":username,
       "alamat":alamat,
     };
+    if(profile != null){
+      data['profile'] = await profile.readAsBytesSync();
+    }
     var body=json.encode(data);
     var url=Uri.parse('$baseurl/profile/$userid');
     http.Response response= await http.put(
@@ -62,6 +69,24 @@ class authservice{
     print(response.body);
     return response;
   }
+
+  static Future<http.Response> tambahkeranjang(int sayur_id,int user_id,int quantity) async{
+    Map data={
+      "sayur_id":sayur_id,
+      "user_id":user_id,
+      "quantity":quantity,
+    };
+    var body=json.encode(data);
+    var url=Uri.parse('$baseurl/keranjang/tambah');
+    http.Response response=await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+    print(response.body);
+    return response;
+  }
+
 
 
 }

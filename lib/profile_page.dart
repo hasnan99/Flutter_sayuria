@@ -95,7 +95,7 @@ class _profilepage extends State<profilepage> {
                     backgroundColor: Color(0xFFF5F6F9),
                   ),
                   onPressed: (){Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => edit_profile()));
+                      MaterialPageRoute(builder: (context) => EditProfile()));
                   },
                   child: Row(
                     children: [

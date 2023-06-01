@@ -14,6 +14,23 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  int quantity =1;
+
+  void incrementqty(){
+    setState(() {
+      quantity++;
+    });
+  }
+
+  void decrementqty(){
+    if(quantity >1){
+      setState(() {
+        quantity--;
+      });
+    }
+
+  }
+
   Map<String, dynamic> sayur = {};
 
   Future<void> fetchdetailsayur() async {
@@ -113,27 +130,30 @@ class _ProductDetailState extends State<ProductDetail> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
+                          GestureDetector(
+                            onTap:decrementqty,
+                            child:Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                              size: 25,
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
                             ),
                           ),
                           const SizedBox(width: 10),
-                          const Text(
-                            '1',
+                           Text(
+                            quantity.toString(),
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -142,22 +162,25 @@ class _ProductDetailState extends State<ProductDetail> {
                           const SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
+                          GestureDetector(
+                            onTap: incrementqty,
+                            child:Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 25,
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
                             ),
                           ),
                         ],
@@ -204,7 +227,7 @@ class _ProductDetailState extends State<ProductDetail> {
           ),
         ],
       ),
-      bottomNavigationBar: const ProductDetailNavbar(),
+      bottomNavigationBar:  ProductDetailNavbar(sayurid:widget.productId,jumlah:quantity),
     );
   }
 }
